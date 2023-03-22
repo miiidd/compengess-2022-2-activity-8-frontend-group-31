@@ -5,7 +5,7 @@ let itemsData;
 
 // TODO #2.1: Edit group number
 const getGroupNumber = () => {
-  return 99;
+  return 31;
 };
 
 // TODO #2.2: Show group members
@@ -28,7 +28,10 @@ const showGroupMembers = async () => {
           <li>${member.full_name}</li>
           `;
         // ----------------- FILL IN YOUR CODE UNDER THIS AREA ONLY ----------------- //
-        member_dropdown.innerHTML += ``;
+        member_dropdown.innerHTML += `
+        <option value='${member.full_name}'>${member.full_name}</option>
+        `;
+        
         // ----------------- FILL IN YOUR CODE ABOVE THIS AREA ONLY ----------------- //
       });
     })
@@ -37,9 +40,13 @@ const showGroupMembers = async () => {
 
 // TODO #2.3: Send Get items ("GET") request to backend server and store the response in itemsData variable
 const getItemsFromDB = async () => {
-  console.log(
-    "This function should fetch 'get items' route from backend server."
-  );
+  const options = {
+method: "GET",
+credentials: 'include',
+  };
+  itemsData = await fetch('http://${backendIPAddress}/itmes',options)
+  .then((r) => r.json())
+  .catch((err) => console.error(err));
 };
 
 // TODO #2.4: Show items in table (Sort itemsData variable based on created_date in ascending order)
